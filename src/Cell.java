@@ -38,6 +38,7 @@ public class Cell extends JButton {
             this.value = String.valueOf(value);
         }
 
+        super.setText(this.value);
     }
 
     public String getValue(){

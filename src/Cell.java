@@ -1,34 +1,34 @@
 import javax.swing.*;
 
 public class Cell extends JButton {
-    private int x;
-    private int y;
+    private int col;
+    private int row;
     private String value;
 
     public Cell(){
 
     }
 
-    public Cell(int x, int y, int value){
-        this.x = x;
-        this.y = y;
+    public Cell(int col, int row, int value){
+        this.col = col;
+        this.row = row;
         this.setValue(value);
     }
 
-    public void setX(int x){
-        this.x = x;
+    public void setCol(int col){
+        this.col = col;
     }
 
-    public int getX(){
-        return x;
+    public int getCol(){
+        return col;
     }
 
-    public void setY(int y){
-        this.y = y;
+    public void setRow(int row){
+        this.row = row;
     }
 
-    public int getY(){
-        return y;
+    public int getRow(){
+        return row;
     }
 
     public void setValue(int value){

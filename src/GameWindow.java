@@ -1,11 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 public class GameWindow extends JFrame {
-    private final JPanel contentPanel = new JPanel();
-    private final ArrayList<Cell> cells = new ArrayList<>();
+    private final Cell[] cells = new Cell[16];
     private Pos2D emptyCell;
     private int cellsLeft = 15;
 
@@ -16,6 +14,7 @@ public class GameWindow extends JFrame {
         setLocation(50, 50);
         generateCells();
 
+        JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new GridLayout(4, 4, 3, 3));
 
         for(Cell cell : cells){
@@ -47,7 +46,7 @@ public class GameWindow extends JFrame {
                 cellsLeft--;
             }
 
-            cells.add(cell);
+            cells[position] = cell;
             position++;
         }
     }
@@ -60,14 +59,14 @@ public class GameWindow extends JFrame {
             int clickPosition = pos.getCol() + pos.getRow() * 4;
             int emptyPosition = emptyCell.getCol() + emptyCell.getRow() * 4;
 
-            String value = cells.get(clickPosition).getValue();
-            cells.get(emptyPosition).setValue(value);
-            cells.get(clickPosition).setValue("");
+            String value = cells[clickPosition].getValue();
+            cells[emptyPosition].setValue(value);
+            cells[clickPosition].setValue("");
 
             emptyCell = pos;
 
-            cellsLeft += cells.get(clickPosition).checkCorrect((clickPosition+1) == cells.get(clickPosition).getIntValue());
-            cellsLeft += cells.get(emptyPosition).checkCorrect((emptyPosition+1) == cells.get(emptyPosition).getIntValue());
+            cellsLeft += cells[clickPosition].checkCorrect((clickPosition+1) == cells[clickPosition].getIntValue());
+            cellsLeft += cells[emptyPosition].checkCorrect((emptyPosition+1) == cells[emptyPosition].getIntValue());
 
             if(cellsLeft == 0){
                 JOptionPane.showMessageDialog(

@@ -1,34 +1,21 @@
 import javax.swing.*;
 
 public class Cell extends JButton {
-    private int col;
-    private int row;
+    private Pos2D pos;
     private String value;
 
-    public Cell(){
-
-    }
-
-    public Cell(int col, int row, int value){
-        this.col = col;
-        this.row = row;
+    public Cell(Pos2D pos, int value){
+        this.pos = pos;
         this.setValue(value);
+        this.setActionCommand(pos.toString());
     }
 
-    public void setCol(int col){
-        this.col = col;
+    public void setPos(Pos2D pos){
+        this.pos = pos;
     }
 
-    public int getCol(){
-        return col;
-    }
-
-    public void setRow(int row){
-        this.row = row;
-    }
-
-    public int getRow(){
-        return row;
+    public Pos2D getPos(){
+        return pos;
     }
 
     public void setValue(int value){
@@ -39,6 +26,10 @@ public class Cell extends JButton {
         }
 
         super.setText(this.value);
+    }
+
+    public void setValue(String value){
+        this.value = value;
     }
 
     public String getValue(){

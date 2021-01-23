@@ -7,6 +7,7 @@ public class GameWindow extends JFrame {
     private final JPanel contentPanel = new JPanel();
     private final ArrayList<Cell> cells = new ArrayList<>();
     private Pos2D emptyCell;
+    private int cellsLeft = 15;
 
     public GameWindow(){
         setTitle("The 15 game");
@@ -42,6 +43,10 @@ public class GameWindow extends JFrame {
                 emptyCell = new Pos2D(col, row);
             }
 
+            if(cell.getIsCorrect()){
+                cellsLeft--;
+            }
+
             cells.add(cell);
             position++;
         }
@@ -50,6 +55,30 @@ public class GameWindow extends JFrame {
     public void handleClick(String actionCommand){
         Pos2D pos = Pos2D.parseString(actionCommand);
 
-        System.out.println(pos.toString());
+        if(((pos.getCol() == emptyCell.getCol()-1 || pos.getCol() == emptyCell.getCol()+1) && pos.getRow() == emptyCell.getRow()) ||
+                ((pos.getRow() == emptyCell.getRow()-1 || pos.getRow() == emptyCell.getRow()+1) && pos.getCol() == emptyCell.getCol())){
+            int clickPosition = pos.getCol() + pos.getRow() * 4;
+            int emptyPosition = emptyCell.getCol() + emptyCell.getRow() * 4;
+
+            String value = cells.get(clickPosition).getValue();
+            cells.get(emptyPosition).setValue(value);
+            cells.get(clickPosition).setValue("");
+
+            emptyCell = pos;
+
+            cellsLeft += cells.get(clickPosition).checkCorrect((clickPosition+1) == cells.get(clickPosition).getIntValue());
+            cellsLeft += cells.get(emptyPosition).checkCorrect((emptyPosition+1) == cells.get(emptyPosition).getIntValue());
+
+            if(cellsLeft == 0){
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Congratulations you have won!",
+                        "Congratulations!",
+                        JOptionPane.PLAIN_MESSAGE
+                );
+            }
+        }else{
+            Toolkit.getDefaultToolkit().beep();
+        }
     }
 }

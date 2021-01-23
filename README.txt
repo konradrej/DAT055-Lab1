@@ -8,3 +8,4 @@ GameWindow klassen hanterar spelfönstret och dess logik. Den är subklass till 
 skapar den ett fönster. Den kallar även generateCells metoden för att skapa alla celler. Metoden handelClick
 innehåller spellogiken och är handler för cellernas ActionEvent. Första if satsen i handelClick kontrollerar ifall
 den klickade cellen är ortogonalt kopplad till den tomma cellen.
+
